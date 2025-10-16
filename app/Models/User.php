@@ -4,13 +4,17 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
+
+    // Bảng trong DB là 'user' (không có s)
+    protected $table = 'user';
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +22,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
+        'isActive',
+        'role',
     ];
 
     /**
@@ -30,7 +35,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -41,8 +45,13 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'isActive' => 'boolean',
         ];
+    }
+
+    // Laravel expects an identifier field for auth. We will use username
+    public function getAuthIdentifierName()
+    {
+        return 'username';
     }
 }

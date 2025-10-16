@@ -1,0 +1,691 @@
+{
+  "database_schema": {
+    "criteria": {
+      "table_name": "criteria",
+      "columns": [
+        {
+          "name": "id",
+          "type": "int",
+          "nullable": false,
+          "auto_increment": true,
+          "description": "Primary key"
+        },
+        {
+          "name": "criteria_name",
+          "type": "varchar(255)",
+          "charset": "utf8mb4",
+          "collation": "utf8mb4_unicode_ci",
+          "nullable": false,
+          "description": "Tên tiêu chí đánh giá"
+        },
+        {
+          "name": "criteriaTypeId",
+          "type": "int",
+          "nullable": true,
+          "foreign_key": "criteria_type(id)",
+          "description": "Loại tiêu chí (cost, distance, condition, etc.)"
+        },
+        {
+          "name": "parentId",
+          "type": "int",
+          "nullable": true,
+          "foreign_key": "criteria(id)",
+          "description": "Tiêu chí cha (cho cấu trúc phân cấp)"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian tạo"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian cập nhật"
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp(6)",
+          "nullable": true,
+          "description": "Soft delete timestamp"
+        },
+        {
+          "name": "clientId",
+          "type": "int",
+          "nullable": true,
+          "foreign_key": "client(id)",
+          "description": "ID khách hàng (nếu tiêu chí riêng cho client)"
+        },
+        {
+          "name": "criteriaPercent",
+          "type": "int",
+          "nullable": true,
+          "description": "Phần trăm trọng số của tiêu chí"
+        }
+      ],
+      "sample_data": [
+        {
+          "id": 1,
+          "criteria_name": "Land cost",
+          "criteriaTypeId": null,
+          "parentId": null,
+          "created_at": "2023-04-10 16:00:04.047882",
+          "updated_at": "2023-04-10 16:00:04.047882",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 2,
+          "criteria_name": "Land lease price",
+          "criteriaTypeId": 1,
+          "parentId": 1,
+          "created_at": "2023-04-10 16:05:51.577634",
+          "updated_at": "2023-05-09 02:48:43.749049",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 3,
+          "criteria_name": "Land-use Right Tax",
+          "criteriaTypeId": 1,
+          "parentId": 1,
+          "created_at": "2023-04-10 16:06:28.421047",
+          "updated_at": "2023-04-10 16:06:28.421047",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 4,
+          "criteria_name": "other charges",
+          "criteriaTypeId": 1,
+          "parentId": 1,
+          "created_at": "2023-04-10 16:06:45.266543",
+          "updated_at": "2023-04-10 16:06:45.266543",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 5,
+          "criteria_name": "Sublease duration",
+          "criteriaTypeId": 6,
+          "parentId": 1,
+          "created_at": "2023-04-10 16:07:23.877797",
+          "updated_at": "2023-04-10 16:07:23.877797",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 6,
+          "criteria_name": "Site connection",
+          "criteriaTypeId": null,
+          "parentId": null,
+          "created_at": "2023-04-10 16:07:49.599367",
+          "updated_at": "2023-04-10 16:07:49.599367",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 7,
+          "criteria_name": "Distance from Seaport",
+          "criteriaTypeId": 2,
+          "parentId": 6,
+          "created_at": "2023-04-10 16:08:19.252607",
+          "updated_at": "2023-04-10 16:08:19.252607",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 8,
+          "criteria_name": "Distance from Airport",
+          "criteriaTypeId": 2,
+          "parentId": 6,
+          "created_at": "2023-04-10 16:08:31.808599",
+          "updated_at": "2023-04-10 16:08:31.808599",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 9,
+          "criteria_name": "Distance from highways",
+          "criteriaTypeId": 2,
+          "parentId": 6,
+          "created_at": "2023-04-10 16:08:49.602689",
+          "updated_at": "2023-04-10 16:08:49.602689",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 10,
+          "criteria_name": "Distance from Big Cities",
+          "criteriaTypeId": 2,
+          "parentId": 6,
+          "created_at": "2023-04-10 16:09:01.234658",
+          "updated_at": "2023-04-10 16:09:01.234658",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 11,
+          "criteria_name": "Distance from existing office/factory",
+          "criteriaTypeId": 2,
+          "parentId": 6,
+          "created_at": "2023-04-10 16:09:11.442669",
+          "updated_at": "2023-04-10 16:09:11.442669",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        },
+        {
+          "id": 12,
+          "criteria_name": "Geotechnical",
+          "criteriaTypeId": null,
+          "parentId": null,
+          "created_at": "2023-04-10 16:09:28.157231",
+          "updated_at": "2023-04-10 16:09:28.157231",
+          "deleted_at": null,
+          "clientId": null,
+          "criteriaPercent": null
+        }
+      ]
+    },
+    "criteria_type": {
+      "table_name": "criteria_type",
+      "columns": [
+        {
+          "name": "id",
+          "type": "int",
+          "nullable": false,
+          "auto_increment": true,
+          "description": "Primary key"
+        },
+        {
+          "name": "type_name",
+          "type": "varchar(255)",
+          "charset": "utf8mb4",
+          "collation": "utf8mb4_unicode_ci",
+          "nullable": false,
+          "description": "Tên loại tiêu chí"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian tạo"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian cập nhật"
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp(6)",
+          "nullable": true,
+          "description": "Soft delete timestamp"
+        }
+      ],
+      "sample_data": [
+        {
+          "id": 1,
+          "type_name": "cost",
+          "created_at": "2023-03-30 03:13:59.215554",
+          "updated_at": "2023-03-30 03:13:59.215554",
+          "deleted_at": null
+        },
+        {
+          "id": 2,
+          "type_name": "distance",
+          "created_at": "2023-03-30 03:14:08.571884",
+          "updated_at": "2023-03-30 03:14:08.571884",
+          "deleted_at": null
+        },
+        {
+          "id": 3,
+          "type_name": "2H4R/4H9R",
+          "created_at": "2023-03-30 03:14:15.918962",
+          "updated_at": "2023-03-30 03:14:15.918962",
+          "deleted_at": null
+        },
+        {
+          "id": 4,
+          "type_name": "yes/no",
+          "created_at": "2023-03-30 03:14:22.905133",
+          "updated_at": "2023-03-30 03:14:22.905133",
+          "deleted_at": null
+        },
+        {
+          "id": 5,
+          "type_name": "condition",
+          "created_at": "2023-03-30 03:14:29.494479",
+          "updated_at": "2023-03-30 03:14:29.494479",
+          "deleted_at": null
+        },
+        {
+          "id": 6,
+          "type_name": "year",
+          "created_at": "2023-04-10 15:28:48.356403",
+          "updated_at": "2023-04-10 15:28:48.356403",
+          "deleted_at": null
+        }
+      ]
+    },
+    "criteria_industry": {
+      "table_name": "criteria_industry",
+      "columns": [
+        {
+          "name": "criteriaId",
+          "type": "int",
+          "nullable": false,
+          "foreign_key": "criteria(id)",
+          "description": "ID tiêu chí"
+        },
+        {
+          "name": "industryId",
+          "type": "int",
+          "nullable": false,
+          "foreign_key": "industry(id)",
+          "description": "ID ngành công nghiệp"
+        }
+      ]
+    },
+    "judgment_detail": {
+      "table_name": "judgment_detail",
+      "columns": [
+        {
+          "name": "id",
+          "type": "int",
+          "nullable": false,
+          "auto_increment": true,
+          "description": "Primary key"
+        },
+        {
+          "name": "sessionId",
+          "type": "int",
+          "nullable": true,
+          "foreign_key": "session(id)",
+          "description": "ID phiên đánh giá"
+        },
+        {
+          "name": "criteriaId",
+          "type": "int",
+          "nullable": false,
+          "description": "ID tiêu chí"
+        },
+        {
+          "name": "projectId",
+          "type": "int",
+          "nullable": true,
+          "foreign_key": "project(id)",
+          "description": "ID dự án"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian tạo"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian cập nhật"
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp(6)",
+          "nullable": true,
+          "description": "Soft delete timestamp"
+        },
+        {
+          "name": "criteria_point",
+          "type": "double",
+          "nullable": true,
+          "description": "Điểm số của tiêu chí"
+        },
+        {
+          "name": "criteria_percentage",
+          "type": "int",
+          "nullable": false,
+          "description": "Phần trăm trọng số"
+        },
+        {
+          "name": "criteria_parent_id",
+          "type": "int",
+          "nullable": true,
+          "description": "ID tiêu chí cha"
+        },
+        {
+          "name": "criteria_type",
+          "type": "int",
+          "nullable": true,
+          "description": "Loại tiêu chí"
+        },
+        {
+          "name": "criteria_name",
+          "type": "varchar(255)",
+          "charset": "utf8mb4",
+          "collation": "utf8mb4_unicode_ci",
+          "nullable": true,
+          "description": "Tên tiêu chí"
+        }
+      ]
+    },
+    "industry": {
+      "table_name": "industry",
+      "columns": [
+        {
+          "name": "id",
+          "type": "int",
+          "nullable": false,
+          "auto_increment": true,
+          "description": "Primary key"
+        },
+        {
+          "name": "industry_name",
+          "type": "varchar(255)",
+          "charset": "utf8mb4",
+          "collation": "utf8mb4_unicode_ci",
+          "nullable": false,
+          "description": "Tên ngành công nghiệp"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian tạo"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian cập nhật"
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp(6)",
+          "nullable": true,
+          "description": "Soft delete timestamp"
+        }
+      ]
+    },
+    "project": {
+      "table_name": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type": "int",
+          "nullable": false,
+          "auto_increment": true,
+          "description": "Primary key"
+        },
+        {
+          "name": "project_name",
+          "type": "varchar(255)",
+          "charset": "utf8mb4",
+          "collation": "utf8mb4_unicode_ci",
+          "nullable": false,
+          "description": "Tên dự án"
+        },
+        {
+          "name": "photo",
+          "type": "varchar(255)",
+          "charset": "utf8mb4",
+          "collation": "utf8mb4_unicode_ci",
+          "nullable": true,
+          "description": "URL ảnh dự án"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian tạo"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp(6)",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)",
+          "description": "Thời gian cập nhật"
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp(6)",
+          "nullable": true,
+          "description": "Soft delete timestamp"
+        },
+        {
+          "name": "clientId",
+          "type": "int",
+          "nullable": true,
+          "foreign_key": "client(id)",
+          "description": "ID khách hàng"
+        },
+        {
+          "name": "userId",
+          "type": "int",
+          "nullable": false,
+          "description": "ID người dùng"
+        }
+      ],
+      "sample_data": [
+        {
+          "id": 39,
+          "project_name": "Site A",
+          "photo": "http://cplus.thegoodguys.tech/api/v1/general/image/photo-1685123103344-309162810.jpg",
+          "created_at": "2023-05-26 17:45:03.540620",
+          "updated_at": "2023-05-26 17:47:14.000000",
+          "deleted_at": null,
+          "clientId": 5,
+          "userId": 4
+        },
+        {
+          "id": 40,
+          "project_name": "Site B",
+          "photo": "http://cplus.thegoodguys.tech/api/v1/general/image/photo-1685123128175-660626097.jpg",
+          "created_at": "2023-05-26 17:45:28.181313",
+          "updated_at": "2023-05-30 04:40:20.000000",
+          "deleted_at": null,
+          "clientId": 5,
+          "userId": 4
+        },
+        {
+          "id": 41,
+          "project_name": "Site C",
+          "photo": "http://cplus.thegoodguys.tech/api/v1/general/image/photo-1685123141141-987168914.jpg",
+          "created_at": "2023-05-26 17:45:41.144798",
+          "updated_at": "2023-05-30 05:00:37.000000",
+          "deleted_at": null,
+          "clientId": 5,
+          "userId": 4
+        },
+        {
+          "id": 42,
+          "project_name": "TC",
+          "photo": "http://cplus.thegoodguys.tech/api/v1/general/image/photo-1685245301328-319979452.jpg",
+          "created_at": "2023-05-28 03:41:41.331844",
+          "updated_at": "2023-05-28 04:23:43.000000",
+          "deleted_at": null,
+          "clientId": 6,
+          "userId": 1
+        },
+        {
+          "id": 43,
+          "project_name": "LH1",
+          "photo": "http://cplus.thegoodguys.tech/api/v1/general/image/photo-1685245865454-480159665.jpg",
+          "created_at": "2023-05-28 03:51:05.456971",
+          "updated_at": "2023-05-30 04:33:32.000000",
+          "deleted_at": null,
+          "clientId": 6,
+          "userId": 1
+        },
+        {
+          "id": 44,
+          "project_name": "PM",
+          "photo": "http://cplus.thegoodguys.tech/api/v1/general/image/photo-1685246030394-321669497.jpg",
+          "created_at": "2023-05-28 03:53:50.397661",
+          "updated_at": "2023-05-28 04:18:32.000000",
+          "deleted_at": null,
+          "clientId": 6,
+          "userId": 1
+        },
+        {
+          "id": 46,
+          "project_name": "BB",
+          "photo": "http://cplus.thegoodguys.tech/api/v1/general/image/photo-1685246728367-349151498.jpg",
+          "created_at": "2023-05-28 04:05:28.370868",
+          "updated_at": "2023-05-28 04:14:56.000000",
+          "deleted_at": null,
+          "clientId": 6,
+          "userId": 1
+        },
+        {
+          "id": 47,
+          "project_name": "Site X",
+          "photo": "http://cplus.thegoodguys.tech/api/v1/general/image/photo-1685423073422-571247538.jpg",
+          "created_at": "2023-05-30 05:04:33.436061",
+          "updated_at": "2023-05-30 05:04:33.436061",
+          "deleted_at": null,
+          "clientId": 5,
+          "userId": 2
+        }
+      ]
+    }
+  },
+  "relationships": {
+    "criteria": {
+      "belongs_to": [
+        {
+          "table": "criteria_type",
+          "foreign_key": "criteriaTypeId",
+          "local_key": "id"
+        },
+        {
+          "table": "criteria",
+          "foreign_key": "parentId",
+          "local_key": "id",
+          "description": "Self-referencing for hierarchical structure"
+        },
+        {
+          "table": "client",
+          "foreign_key": "clientId",
+          "local_key": "id"
+        }
+      ],
+      "has_many": [
+        {
+          "table": "criteria",
+          "foreign_key": "parentId",
+          "local_key": "id",
+          "description": "Child criteria"
+        },
+        {
+          "table": "criteria_industry",
+          "foreign_key": "criteriaId",
+          "local_key": "id"
+        },
+        {
+          "table": "judgment_detail",
+          "foreign_key": "criteriaId",
+          "local_key": "id"
+        }
+      ]
+    },
+    "criteria_type": {
+      "has_many": [
+        {
+          "table": "criteria",
+          "foreign_key": "criteriaTypeId",
+          "local_key": "id"
+        }
+      ]
+    },
+    "project": {
+      "belongs_to": [
+        {
+          "table": "client",
+          "foreign_key": "clientId",
+          "local_key": "id"
+        }
+      ],
+      "has_many": [
+        {
+          "table": "judgment_detail",
+          "foreign_key": "projectId",
+          "local_key": "id"
+        }
+      ]
+    }
+  },
+  "business_logic": {
+    "criteria_hierarchy": {
+      "description": "Tiêu chí có cấu trúc phân cấp với parentId để tạo nhóm tiêu chí",
+      "examples": [
+        {
+          "parent": "Land cost (id: 1)",
+          "children": ["Land lease price", "Land-use Right Tax", "other charges", "Sublease duration"]
+        },
+        {
+          "parent": "Site connection (id: 6)",
+          "children": ["Distance from Seaport", "Distance from Airport", "Distance from highways", "Distance from Big Cities", "Distance from existing office/factory"]
+        }
+      ]
+    },
+    "criteria_types": {
+      "cost": "Tiêu chí về chi phí",
+      "distance": "Tiêu chí về khoảng cách",
+      "2H4R/4H9R": "Tiêu chí về loại hình sử dụng đất",
+      "yes/no": "Tiêu chí có/không",
+      "condition": "Tiêu chí về điều kiện",
+      "year": "Tiêu chí về thời gian"
+    },
+    "scoring_system": {
+      "description": "Hệ thống chấm điểm đa tiêu chí cho việc so sánh các địa điểm",
+      "workflow": [
+        "Admin tạo Client",
+        "Admin tạo Project cho Client",
+        "Assign Locations cho Project",
+        "Chấm điểm theo các Criteria",
+        "Tính toán tổng điểm và xếp hạng",
+        "Xuất báo cáo PDF/Excel"
+      ]
+    }
+  },
+  "api_endpoints_suggested": {
+    "criteria": {
+      "GET /api/criteria": "Lấy danh sách tất cả tiêu chí",
+      "GET /api/criteria/{id}": "Lấy chi tiết tiêu chí",
+      "POST /api/criteria": "Tạo tiêu chí mới",
+      "PUT /api/criteria/{id}": "Cập nhật tiêu chí",
+      "DELETE /api/criteria/{id}": "Xóa tiêu chí",
+      "GET /api/criteria/hierarchy": "Lấy cấu trúc phân cấp tiêu chí",
+      "GET /api/criteria/by-type/{typeId}": "Lấy tiêu chí theo loại"
+    },
+    "projects": {
+      "GET /api/projects": "Lấy danh sách dự án",
+      "GET /api/projects/{id}/scoring": "Lấy kết quả chấm điểm của dự án",
+      "POST /api/projects/{id}/scoring": "Lưu điểm chấm điểm",
+      "GET /api/projects/{id}/export/{format}": "Xuất báo cáo dự án"
+    }
+  }
+}

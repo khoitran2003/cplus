@@ -13,15 +13,18 @@ return new class extends Migration
     {
         Schema::create('criteria', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->enum('type', ['cost', 'infrastructure', 'logistics', 'regulatory', 'market', 'other'])->default('other');
-            $table->decimal('weight', 5, 2)->default(1.00); // Trọng số từ 0-10
-            $table->enum('scoring_type', ['numeric', 'percentage', 'rating'])->default('numeric');
-            $table->decimal('max_score', 10, 2)->default(100.00);
-            $table->boolean('is_active')->default(true);
-            $table->integer('sort_order')->default(0);
+            $table->string('criteria_name');
+            $table->unsignedBigInteger('criteriaTypeId')->nullable();
+            $table->unsignedBigInteger('parentId')->nullable();
+            $table->unsignedBigInteger('clientId')->nullable();
+            $table->decimal('criteriaPercent', 5, 2)->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            
+            // Foreign keys
+            $table->foreign('criteriaTypeId')->references('id')->on('criteria_type')->onDelete('set null');
+            $table->foreign('parentId')->references('id')->on('criteria')->onDelete('set null');
+            $table->foreign('clientId')->references('id')->on('clients')->onDelete('set null');
         });
     }
 

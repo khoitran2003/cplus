@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('industry')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
-            $table->enum('status', ['draft', 'active', 'completed', 'cancelled'])->default('draft');
+            $table->string('project_name');
+            $table->string('photo')->nullable();
+            $table->unsignedBigInteger('clientId')->nullable();
+            $table->unsignedBigInteger('userId');
             $table->timestamps();
+            $table->softDeletes();
+            
+            // Foreign keys
+            $table->foreign('clientId')->references('id')->on('clients')->onDelete('set null');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -39,6 +39,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/projects/{project}/scoring', [ProjectController::class, 'scoring'])->name('projects.scoring');
         Route::post('/projects/{project}/scoring', [ProjectController::class, 'saveScoring'])->name('projects.save-scoring');
         
+        // Export Routes
+        Route::get('/projects/{project}/export/{format}', [ProjectController::class, 'export'])->name('projects.export');
+        
         // Dashboard Routes
         Route::get('/projects/{project}/dashboard', [ProjectController::class, 'dashboard'])->name('projects.dashboard');
         Route::get('/projects/{project}/export', [ProjectController::class, 'export'])->name('projects.export');
